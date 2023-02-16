@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[1]:
-
-
 import json
 import pandas as pd
 
@@ -12,23 +6,10 @@ with open('storyline.json') as f:
 data_df = pd.DataFrame(data)
 data_df['record_id'] = data_df.reset_index().iloc[:, 0] + 1
 
-
-# In[2]:
-
-
 ########### process main primary key table
 data_pk = data_df.iloc[:, [0, 3, 4, 5]]
 # print(data_pk)
-
-
-# In[3]:
-
-
 # [date, summary, segments, caloriesIdle, lastUpdate, record_id]
-
-
-# In[4]:
-
 
 ########### process summary column
 dict_summary = []
@@ -41,10 +22,6 @@ for i in range(data_df.shape[0]):
         dict_summary.append(cur_dict[j])
 data_summary = pd.DataFrame(dict_summary)
 # print(data_summary)
-
-
-# In[5]:
-
 
 ########### process segment column
 dict_segment = []
@@ -73,10 +50,6 @@ data_place = pd.DataFrame(dict_place)
 # print(data_segment)
 # print(data_place)
 
-
-# In[6]:
-
-
 ########### process activity table
 dict_activity = []
 dict_segment_update = []
@@ -96,18 +69,10 @@ data_activity = pd.DataFrame(dict_activity)
 # print(data_activity)
 data_segment = pd.DataFrame(dict_segment_update)
 
-
-# In[7]:
-
-
+# merge segment table and activity table by activity_id
 merged_segment_activity = pd.merge(data_activity, data_segment, on='activity_id')
-
 merged_segment_activity = merged_segment_activity.drop('activities', axis=1)
 merged_segment_activity = merged_segment_activity.drop('trackPoints', axis=1)
-
-
-# In[8]:
-
 
 ########### process place table
 data_place['lat'] = ''
@@ -123,19 +88,9 @@ data_place = data_place.drop('location', axis=1)
 data_place = data_place.drop('foursquareCategoryIds', axis=1)
 data_place = data_place.drop('facebookPlaceId', axis=1)
 
-
-# In[9]:
-
-
-# data_pk, data_summary, data_segment, data_place, 
+########### save only useful table
+# data_pk, data_summary, merged_segment_activity, data_place, 
 data_pk.to_csv('main.csv', index=False)
 data_summary.to_csv('summary.csv', index=False)
 merged_segment_activity.to_csv('segment.csv', index=False)
 data_place.to_csv('place.csv', index=False)
-
-
-# In[ ]:
-
-
-
-
