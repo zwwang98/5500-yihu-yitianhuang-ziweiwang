@@ -13,6 +13,7 @@ public class Summary {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
+  @Column(name = "summary_id")
   private Integer id;
 
   @Column(name = "activity", nullable = false)

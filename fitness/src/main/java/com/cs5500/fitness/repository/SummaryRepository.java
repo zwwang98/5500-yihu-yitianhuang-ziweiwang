@@ -8,6 +8,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SummaryRepository extends JpaRepository<Summary, Integer> {
-
-   List<Summary> findAllByRecordId(Integer recordId);
 }
