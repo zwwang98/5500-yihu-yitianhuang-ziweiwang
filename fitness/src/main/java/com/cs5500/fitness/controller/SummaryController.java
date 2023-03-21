@@ -1,6 +1,5 @@
 package com.cs5500.fitness.controller;
 
-import com.cs5500.fitness.exception.SummaryNotFoundException;
 import com.cs5500.fitness.model.Summary;
 import com.cs5500.fitness.repository.SummaryRepository;
 import java.util.List;
