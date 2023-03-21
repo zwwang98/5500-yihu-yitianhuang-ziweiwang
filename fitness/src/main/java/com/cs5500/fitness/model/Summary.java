@@ -35,4 +35,50 @@ public class Summary {
 
   @Column(name = "record_id", nullable = false)
   private Integer recordId;
+
+  public Integer getId() {
+    return id;
+  }
+
+  public String getActivity() {
+    return activity;
+  }
+
+  public String getCategory() {
+    return category;
+  }
+
+  public Double getDuration() {
+    return duration;
+  }
+
+  public Double getDistance() {
+    return distance;
+  }
+
+  public Double getSteps() {
+    return steps;
+  }
+
+  public Double getCalories() {
+    return calories;
+  }
+
+  public Integer getRecordId() {
+    return recordId;
+  }
+
+  @Override
+  public String toString() {
+    return "Summary{" +
+        "id=" + id +
+        ", activity='" + activity + '\'' +
+        ", category='" + category + '\'' +
+        ", duration=" + duration +
+        ", distance=" + distance +
+        ", steps=" + steps +
+        ", calories=" + calories +
+        ", recordId=" + recordId +
+        '}';
+  }
 }

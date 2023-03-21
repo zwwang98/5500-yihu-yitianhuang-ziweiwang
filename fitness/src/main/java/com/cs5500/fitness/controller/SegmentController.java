@@ -1,8 +1,8 @@
 package com.cs5500.fitness.controller;
 
-import com.cs5500.fitness.exception.SegmentNotFoundException;
 import com.cs5500.fitness.model.Segment;
 import com.cs5500.fitness.repository.SegmentRepository;
+import java.util.Optional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,8 +17,7 @@ public class SegmentController {
   }
 
   @GetMapping("/segment/{id}")
-  Segment one(@PathVariable Integer id) {
-    return repository.findById(id)
-        .orElseThrow(() -> new SegmentNotFoundException(id));
+  Optional<Segment> one(@PathVariable Integer id) {
+    return repository.findById(id);
   }
 }
