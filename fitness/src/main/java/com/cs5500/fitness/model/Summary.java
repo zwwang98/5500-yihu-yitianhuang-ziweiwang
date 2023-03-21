@@ -12,7 +12,7 @@ import javax.persistence.Table;
 public class Summary {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @GeneratedValue(strategy = GenerationType.AUTO)
   private Integer id;
 
   @Column(name = "activity", nullable = false)
@@ -35,5 +35,4 @@ public class Summary {
 
   @Column(name = "record_id", nullable = false)
   private Integer recordId;
-
 }

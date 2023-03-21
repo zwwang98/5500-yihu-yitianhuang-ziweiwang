@@ -10,7 +10,7 @@ import javax.persistence.Table;
 @Table(name = "segment")
 public class Segment {
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name = "activity_id")
   private Integer activityId;
 
