@@ -77,7 +77,7 @@ public class RecommendationController {
      * 3. Rank activities above by freq
      * */
 
-    int k = 2000;
+    int k = 10000000;
 
     Place source = new Place();
     source.setLat(latitude.toString());

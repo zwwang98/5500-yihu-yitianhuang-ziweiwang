@@ -19,44 +19,90 @@ import org.springframework.web.bind.annotation.RestController;
 public class RankController {
 
   private final SegmentRepository segmentRepository;
-  private final SummaryRepository summaryRepository;
   private final PlaceRepository placeRepository;
 
   public RankController(SegmentRepository segmentRepository,
-                        SummaryRepository summaryRepository,
-                        PlaceRepository placeRepository) {
+      PlaceRepository placeRepository) {
     this.segmentRepository = segmentRepository;
-    this.summaryRepository = summaryRepository;
     this.placeRepository = placeRepository;
   }
 
   /**
-   * @return Activities with most total time, probably only top 5 given limited activities.
+   * @return Activities with most total time.
    */
-  @GetMapping("/rank/activity")
-  List<Map.Entry<String, Double>> topActivities() {
+  @GetMapping("/rank/activity/freq")
+  List<Map.Entry<String, Double>> topFreqActivities() {
     /*
-     * 1. Read all items from the table "summary"
-     * 2. Calculate total time for each activity
+     * 1. Read all items from the table "segment"
+     * 2. Calculate total count for each activity
      * 3. Rank it
      * */
 
-    List<Summary> allSummaryItem = summaryRepository.findAll();
+    List<Segment> allSegmentItem = segmentRepository.findAll();
 
-    Map<String, Double> activityToTotalTime = new HashMap<>();
+    Map<String, Double> activityToFreq = new HashMap<>();
 
-    for (Summary item : allSummaryItem) {
+    for (Segment item : allSegmentItem) {
       String activity = item.getActivity();
-      Double duration = item.getDuration();
-      activityToTotalTime.putIfAbsent(activity, 0.0);
-      activityToTotalTime.put(
-              activity,
-              activityToTotalTime.get(activity) + duration
+      activityToFreq.putIfAbsent(activity, 0.0);
+      activityToFreq.put(
+          activity,
+          activityToFreq.get(activity) + 1
       );
     }
 
     List<Map.Entry<String, Double>> sortedEntryList = new ArrayList<>(
-            activityToTotalTime.entrySet());
+        activityToFreq.entrySet());
+
+    // sort ascending by value in key-value pair and reverse the order
+    sortedEntryList.sort(Map.Entry.comparingByValue(Comparator.reverseOrder()));
+
+    return sortedEntryList;
+  }
+
+  /**
+   * @return Activities with most total calories.
+   */
+  @GetMapping("/rank/activity/calories")
+  List<Map.Entry<String, Double>> topCaloriesActivities() {
+    /*
+     * 1. Read all items from the table "segment"
+     * 2. Calculate average calories for each activity
+     * 3. Rank it
+     * */
+
+    List<Segment> allSegmentItem = segmentRepository.findAll();
+
+    Map<String, Double> activityToTotalCalories = new HashMap<>();
+    Map<String, Integer> activityToCnt = new HashMap<>();
+
+    for (Segment item : allSegmentItem) {
+      String activity = item.getActivity();
+      Double calories = item.getCalories();
+
+      activityToCnt.putIfAbsent(activity, 0);
+      activityToCnt.put(
+          activity,
+          activityToCnt.get(activity) + 1
+      );
+
+      activityToTotalCalories.putIfAbsent(activity, 0.0);
+      activityToTotalCalories.put(
+          activity,
+          activityToTotalCalories.get(activity) + (calories == null ? 0.0 : calories)
+      );
+    }
+
+    Map<String, Double> activityToAvgCalories = new HashMap<>();
+    for (String activity : activityToCnt.keySet()) {
+      Double totalCalories = activityToTotalCalories.get(activity);
+      Integer count = activityToCnt.get(activity);
+      Double avgCalories = totalCalories / count;
+      activityToAvgCalories.put(activity, avgCalories);
+    }
+
+    List<Map.Entry<String, Double>> sortedEntryList = new ArrayList<>(
+        activityToAvgCalories.entrySet());
 
     // sort ascending by value in key-value pair and reverse the order
     sortedEntryList.sort(Map.Entry.comparingByValue(Comparator.reverseOrder()));
@@ -80,8 +126,8 @@ public class RankController {
       Integer id = item.getPlace();
       placeIdToFreq.putIfAbsent(id, 0);
       placeIdToFreq.put(
-              id,
-              placeIdToFreq.get(id) + 1
+          id,
+          placeIdToFreq.get(id) + 1
       );
     }
 
@@ -94,14 +140,14 @@ public class RankController {
     List<String> sortedPlaceNameList = new ArrayList<>();
     for (Map.Entry<Integer, Integer> Item : sortedEntryList) {
       if (Item.getKey() != null &&
-              placeRepository.findById(Item.getKey()).isPresent() &&
-              sortedPlaceNameList.size() < 10) {
+          placeRepository.findById(Item.getKey()).isPresent() &&
+          sortedPlaceNameList.size() < 10) {
         Place curPlace = placeRepository.findById(Item.getKey()).get();
         System.out.println(curPlace.getName() + " " + Item.getValue());
         if (Objects.equals(curPlace.getName(), "") ||
-                Objects.equals(curPlace.getName(), "Home") ||
-                Objects.equals(curPlace.getName(), "My Home") ||
-                curPlace.getName() == null) {
+            Objects.equals(curPlace.getName(), "Home") ||
+            Objects.equals(curPlace.getName(), "My Home") ||
+            curPlace.getName() == null) {
           continue;
         }
         sortedPlaceNameList.add(curPlace.getName());
