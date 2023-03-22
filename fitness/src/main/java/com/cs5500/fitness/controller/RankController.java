@@ -33,7 +33,7 @@ public class RankController {
     /*
     * 1. Read all items from the table "summary"
     * 2. Calculate total time for each activity
-    * 3. Rank
+    * 3. Rank it
     * */
 
     List<Summary> allSummaryItem = summaryRepository.findAll();
@@ -50,11 +50,11 @@ public class RankController {
       );
     }
 
-    List<Map.Entry<String, Double>> entryList = new ArrayList<>(activityToTotalTime.entrySet());
+    List<Map.Entry<String, Double>> sortedEntryList = new ArrayList<>(activityToTotalTime.entrySet());
 
     // sort ascending by value in key-value pair and reverse the order
-    entryList.sort(Map.Entry.comparingByValue(Comparator.reverseOrder()));
+    sortedEntryList.sort(Map.Entry.comparingByValue(Comparator.reverseOrder()));
 
-    return entryList;
+    return sortedEntryList;
   }
 }
