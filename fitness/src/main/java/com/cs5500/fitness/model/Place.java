@@ -10,6 +10,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "place")
 public class Place {
+
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name = "id")
@@ -52,6 +53,14 @@ public class Place {
 
   public String getLon() {
     return lon;
+  }
+
+  public void setLat(String lat) {
+    this.lat = lat;
+  }
+
+  public void setLon(String lon) {
+    this.lon = lon;
   }
 
   @Override
