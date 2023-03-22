@@ -1,6 +1,7 @@
 package com.cs5500.fitness.repository;
 
 import com.cs5500.fitness.model.Place;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
