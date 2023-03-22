@@ -1,6 +1,7 @@
 package com.cs5500.fitness.controller;
 
 import com.cs5500.fitness.model.Place;
+import com.cs5500.fitness.model.Segment;
 import com.cs5500.fitness.model.Summary;
 import com.cs5500.fitness.repository.PlaceRepository;
 import com.cs5500.fitness.repository.SegmentRepository;
@@ -10,6 +11,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,8 +23,8 @@ public class RankController {
   private final PlaceRepository placeRepository;
 
   public RankController(SegmentRepository segmentRepository,
-      SummaryRepository summaryRepository,
-      PlaceRepository placeRepository) {
+                        SummaryRepository summaryRepository,
+                        PlaceRepository placeRepository) {
     this.segmentRepository = segmentRepository;
     this.summaryRepository = summaryRepository;
     this.placeRepository = placeRepository;
@@ -48,12 +50,13 @@ public class RankController {
       Double duration = item.getDuration();
       activityToTotalTime.putIfAbsent(activity, 0.0);
       activityToTotalTime.put(
-          activity,
-          activityToTotalTime.get(activity) + duration
+              activity,
+              activityToTotalTime.get(activity) + duration
       );
     }
 
-    List<Map.Entry<String, Double>> sortedEntryList = new ArrayList<>(activityToTotalTime.entrySet());
+    List<Map.Entry<String, Double>> sortedEntryList = new ArrayList<>(
+            activityToTotalTime.entrySet());
 
     // sort ascending by value in key-value pair and reverse the order
     sortedEntryList.sort(Map.Entry.comparingByValue(Comparator.reverseOrder()));
@@ -62,23 +65,23 @@ public class RankController {
   }
 
   @GetMapping("/rank/location")
-  List<Map.Entry<Integer, Integer>> topLocations() {
+  List<String> topLocations() {
     /*
-     * 1. Read all items from the table "summary"
+     * 1. Read all items from the table "segment"
      * 2. Calculate total time for each activity
      * 3. Rank it
      * */
 
-    List<Place> allPlaceItem = placeRepository.findAll();
+    List<Segment> allSegmentItem = segmentRepository.findAll();
 
     Map<Integer, Integer> placeIdToFreq = new HashMap<>();
 
-    for (Place item : allPlaceItem) {
-      Integer id = item.getId();
+    for (Segment item : allSegmentItem) {
+      Integer id = item.getPlace();
       placeIdToFreq.putIfAbsent(id, 0);
       placeIdToFreq.put(
-          id,
-          placeIdToFreq.get(id) + 1
+              id,
+              placeIdToFreq.get(id) + 1
       );
     }
 
@@ -87,6 +90,24 @@ public class RankController {
     // sort ascending by value in key-value pair and reverse the order
     sortedEntryList.sort(Map.Entry.comparingByValue(Comparator.reverseOrder()));
 
-    return sortedEntryList;
+    // get corresponding place info given place id
+    List<String> sortedPlaceNameList = new ArrayList<>();
+    for (Map.Entry<Integer, Integer> Item : sortedEntryList) {
+      if (Item.getKey() != null &&
+              placeRepository.findById(Item.getKey()).isPresent() &&
+              sortedPlaceNameList.size() < 10) {
+        Place curPlace = placeRepository.findById(Item.getKey()).get();
+        System.out.println(curPlace.getName() + " " + Item.getValue());
+        if (Objects.equals(curPlace.getName(), "") ||
+                Objects.equals(curPlace.getName(), "Home") ||
+                Objects.equals(curPlace.getName(), "My Home") ||
+                curPlace.getName() == null) {
+          continue;
+        }
+        sortedPlaceNameList.add(curPlace.getName());
+      }
+    }
+
+    return sortedPlaceNameList;
   }
 }
