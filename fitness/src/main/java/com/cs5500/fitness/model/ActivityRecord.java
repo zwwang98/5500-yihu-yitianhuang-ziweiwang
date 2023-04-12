@@ -42,6 +42,22 @@ public class ActivityRecord {
     return lastUpdate;
   }
 
+  public void setId(Integer id) {
+    this.id = id;
+  }
+
+  public void setDate(LocalDate date) {
+    this.date = date;
+  }
+
+  public void setCaloriesIdle(Integer caloriesIdle) {
+    this.caloriesIdle = caloriesIdle;
+  }
+
+  public void setLastUpdate(String lastUpdate) {
+    this.lastUpdate = lastUpdate;
+  }
+
   @Override
   public String toString() {
     return "ActivityRecord{" +

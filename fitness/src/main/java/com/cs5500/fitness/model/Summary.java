@@ -69,6 +69,38 @@ public class Summary {
     return recordId;
   }
 
+  public void setId(Integer id) {
+    this.id = id;
+  }
+
+  public void setActivity(String activity) {
+    this.activity = activity;
+  }
+
+  public void setCategory(String category) {
+    this.category = category;
+  }
+
+  public void setDuration(Double duration) {
+    this.duration = duration;
+  }
+
+  public void setDistance(Double distance) {
+    this.distance = distance;
+  }
+
+  public void setSteps(Double steps) {
+    this.steps = steps;
+  }
+
+  public void setCalories(Double calories) {
+    this.calories = calories;
+  }
+
+  public void setRecordId(Integer recordId) {
+    this.recordId = recordId;
+  }
+
   @Override
   public String toString() {
     return "Summary{" +

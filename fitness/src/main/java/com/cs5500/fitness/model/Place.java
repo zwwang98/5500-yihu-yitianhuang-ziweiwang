@@ -63,6 +63,22 @@ public class Place {
     this.lon = lon;
   }
 
+  public void setId(Integer id) {
+    this.id = id;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public void setType(String type) {
+    this.type = type;
+  }
+
+  public void setFoursquareId(String foursquareId) {
+    this.foursquareId = foursquareId;
+  }
+
   @Override
   public String toString() {
     return "Place{" +

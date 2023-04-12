@@ -130,6 +130,74 @@ public class Segment {
     return segmentId;
   }
 
+  public void setActivity(String activity) {
+    this.activity = activity;
+  }
+
+  public void setCategory(String category) {
+    this.category = category;
+  }
+
+  public void setManual(String manual) {
+    this.manual = manual;
+  }
+
+  public void setStartTimeX(String startTimeX) {
+    this.startTimeX = startTimeX;
+  }
+
+  public void setEndTimeX(String endTimeX) {
+    this.endTimeX = endTimeX;
+  }
+
+  public void setDuration(Double duration) {
+    this.duration = duration;
+  }
+
+  public void setDistance(Double distance) {
+    this.distance = distance;
+  }
+
+  public void setSteps(Double steps) {
+    this.steps = steps;
+  }
+
+  public void setCalories(Double calories) {
+    this.calories = calories;
+  }
+
+  public void setActivityId(Integer activityId) {
+    this.activityId = activityId;
+  }
+
+  public void setType(String type) {
+    this.type = type;
+  }
+
+  public void setStartTimeY(String startTimeY) {
+    this.startTimeY = startTimeY;
+  }
+
+  public void setEndTimeY(String endTimeY) {
+    this.endTimeY = endTimeY;
+  }
+
+  public void setPlace(Integer place) {
+    this.place = place;
+  }
+
+  public void setLastUpdate(String lastUpdate) {
+    this.lastUpdate = lastUpdate;
+  }
+
+  public void setRecordId(Integer recordId) {
+    this.recordId = recordId;
+  }
+
+  public void setSegmentId(Integer segmentId) {
+    this.segmentId = segmentId;
+  }
+
   @Override
   public String toString() {
     return "Segment{" +
