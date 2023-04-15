@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,6 +31,7 @@ public class RankController {
   /**
    * @return Activities with most total time.
    */
+  @CrossOrigin(origins = "http://localhost:3000")
   @GetMapping("/rank/activity/freq")
   List<Map.Entry<String, Double>> topFreqActivities() {
     /*
@@ -63,6 +65,7 @@ public class RankController {
   /**
    * @return Activities with most total calories.
    */
+  @CrossOrigin(origins = "http://localhost:3000")
   @GetMapping("/rank/activity/calories")
   List<Map.Entry<String, Double>> topCaloriesActivities() {
     /*
@@ -110,6 +113,7 @@ public class RankController {
     return sortedEntryList;
   }
 
+  @CrossOrigin(origins = "http://localhost:3000")
   @GetMapping("/rank/location")
   List<String> topLocations() {
     /*

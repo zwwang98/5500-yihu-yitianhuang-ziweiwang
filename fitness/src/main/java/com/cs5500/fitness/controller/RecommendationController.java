@@ -12,6 +12,7 @@ import java.util.Objects;
 import java.util.PriorityQueue;
 import java.util.Set;
 import java.util.stream.Collectors;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,6 +30,7 @@ public class RecommendationController {
     this.segmentRepository = segmentRepository;
   }
 
+  @CrossOrigin(origins = "http://localhost:3000")
   @GetMapping("/recommendation/activity/height/{height}/weight/{weight}/gender/{gender}/age/{age}")
   public Map<String, Integer> recommendActivityForCalories(
       @PathVariable("height") @Pattern(regexp = "^([1-7](\\.\\d)?|8(\\.0)?)$") Double height,
@@ -65,6 +67,7 @@ public class RecommendationController {
     return sportTime;
   }
 
+  @CrossOrigin(origins = "http://localhost:3000")
   @GetMapping("/recommendation/activity/location/{latitude}/{longtitude}")
   public Map<String, Integer> recommendActivityOnLocation(
       @PathVariable Double latitude,
