@@ -5,7 +5,7 @@ import { CircularProgress } from "@mui/material";
 import styles from "./Recommendation.module.css";
 import "bootstrap/dist/css/bootstrap.css";
 
-const Recommendation = () => {
+const Recommendation = ({ base }) => {
   const [height, setHeight] = useState(175);
   const [weight, setWeight] = useState(100);
   const [gender, setGender] = useState("male");
@@ -19,7 +19,7 @@ const Recommendation = () => {
     // Handle form submission here
     axios
       .get(
-        `http://localhost:8080/recommendation/activity/height/${height}/weight/${weight}/gender/${gender}/age/${age}`
+        `${base}/recommendation/activity/height/${height}/weight/${weight}/gender/${gender}/age/${age}`
       )
       .then((data) => {
         console.log("data", data.data);

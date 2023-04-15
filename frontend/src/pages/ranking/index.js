@@ -7,7 +7,7 @@ import RankActivityByFreq from "./rank-activity-by-freq.js";
 import RankActivityByCalories from "./rank-activity-by-calories.js";
 import RankLocation from "./rank-location.js";
 
-const Ranking = () => {
+const Ranking = ({ base }) => {
   const [value, setValue] = React.useState(0);
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -29,13 +29,13 @@ const Ranking = () => {
           </Tabs>
         </Box>
         <TabPanel value={value} index={0}>
-          <RankActivityByFreq />
+          <RankActivityByFreq base={base} />
         </TabPanel>
         <TabPanel value={value} index={1}>
-          <RankActivityByCalories />
+          <RankActivityByCalories base={base} />
         </TabPanel>
         <TabPanel value={value} index={2}>
-          <RankLocation />
+          <RankLocation base={base} />
         </TabPanel>
       </Box>
     </>

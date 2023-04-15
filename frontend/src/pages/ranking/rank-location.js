@@ -2,11 +2,11 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { CircularProgress } from "@mui/material";
 
-const RankLocation = () => {
+const RankLocation = ({ base }) => {
   const [data, setData] = useState();
   const [loading, setLoading] = useState(true);
   useEffect(() => {
-    axios.get("http://localhost:8080/rank/location").then((res) => {
+    axios.get(`${base}/rank/location`).then((res) => {
       setData(res.data);
       setLoading(false);
     });

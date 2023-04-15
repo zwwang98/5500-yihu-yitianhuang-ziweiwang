@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { CircularProgress } from "@mui/material";
 
-const Suggestion = () => {
+const Suggestion = ({ base }) => {
   const [longtitude, setlongtitude] = useState(-122.3280325497587);
   const [latitude, setLatitude] = useState(47.59786388589972);
 
@@ -24,9 +24,7 @@ const Suggestion = () => {
     // Handle form submission here
     console.log({ longtitude, latitude });
     axios
-      .get(
-        `http://localhost:8080/recommendation/activity/location/${latitude}/${longtitude}`
-      )
+      .get(`${base}/recommendation/activity/location/${latitude}/${longtitude}`)
       .then((data) => {
         console.log("data", data.data);
         setData(data.data);
