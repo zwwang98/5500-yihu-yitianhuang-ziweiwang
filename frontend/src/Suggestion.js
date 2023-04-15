@@ -1,35 +1,56 @@
+import axios from "axios";
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { CircularProgress } from "@mui/material";
 
 const Suggestion = () => {
-  const [longitude, setLongitude] = useState("");
-  const [latitude, setLatitude] = useState("");
+  const [longtitude, setlongtitude] = useState(-122.3280325497587);
+  const [latitude, setLatitude] = useState(47.59786388589972);
+
+  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState();
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    if (name === "longitude") {
-      setLongitude(value);
+    if (name === "longtitude") {
+      setlongtitude(value);
     } else {
       setLatitude(value);
     }
   };
 
+  const handleOnClick = () => {
+    setLoading(true);
+    // Handle form submission here
+    console.log({ longtitude, latitude });
+    axios
+      .get(
+        `http://localhost:8080/recommendation/activity/location/${latitude}/${longtitude}`
+      )
+      .then((data) => {
+        console.log("data", data.data);
+        setData(data.data);
+        setLoading(false);
+      });
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     // Handle form submission here
-    console.log({ longitude, latitude });
+    console.log({ longtitude, latitude });
   };
 
   return (
     <div>
       <h1>Suggestion</h1>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="longitude">Longitude:</label>
+        <label htmlFor="longtitude">longtitude:</label>
         <input
           type="number"
-          id="longitude"
-          name="longitude"
+          id="longtitude"
+          name="longtitude"
           step="any"
-          value={longitude}
+          value={longtitude}
           onChange={handleInputChange}
         />
         <br />
@@ -43,8 +64,31 @@ const Suggestion = () => {
           onChange={handleInputChange}
         />
         <br />
-        <button type="submit">Submit</button>
+        <Link type="submit" className="btn btn-primary" onClick={handleOnClick}>
+          Submit
+        </Link>
       </form>
+
+      {loading && <CircularProgress />}
+      {data && (
+        <>
+          <table className="table">
+            <thead>
+              <tr>
+                <th scope="col">{`Suggested Activities on location {latitude: ${latitude}, longtitude: ${longtitude}}`}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td scope="row">{Object.keys(data)[0].replaceAll("_", " ")}</td>
+              </tr>
+              <tr>
+                <td scope="row">{Object.keys(data)[1].replaceAll("_", " ")}</td>
+              </tr>
+            </tbody>
+          </table>
+        </>
+      )}
     </div>
   );
 };
