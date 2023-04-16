@@ -7,7 +7,7 @@ import Ranking from "./pages/ranking/index.js";
 import BasicTabs from "./pages/tabs";
 import "bootstrap/dist/css/bootstrap.css";
 
-const BASE_API = process.env.BASE_API || "http://localhost:8080";
+const BASE_API = process.env.BASE_API || "http://54.212.1.186:8080";
 
 const Home = () => <h1>Hello!</h1>;
 
