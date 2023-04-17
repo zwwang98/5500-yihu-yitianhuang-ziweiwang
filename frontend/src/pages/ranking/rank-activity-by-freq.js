@@ -6,10 +6,15 @@ const RankActivityByFreq = ({ base }) => {
   const [data, setData] = useState();
   const [loading, setLoading] = useState(true);
   useEffect(() => {
-    axios.get(`${base}/rank/activity/freq`).then((res) => {
-      setData(res.data);
-      setLoading(false);
-    });
+    axios
+      .get(`${base}/rank/activity/freq`)
+      .then((res) => {
+        setData(res.data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
 
   return (

@@ -31,7 +31,7 @@ public class RankController {
   /**
    * @return Activities with most total time.
    */
-  @CrossOrigin(origins = "http://localhost:3000")
+  @CrossOrigin(origins = "*")
   @GetMapping("/rank/activity/freq")
   List<Map.Entry<String, Double>> topFreqActivities() {
     /*
@@ -65,7 +65,7 @@ public class RankController {
   /**
    * @return Activities with most total calories.
    */
-  @CrossOrigin(origins = "http://localhost:3000")
+  @CrossOrigin(origins = "*")
   @GetMapping("/rank/activity/calories")
   List<Map.Entry<String, Double>> topCaloriesActivities() {
     /*
@@ -113,7 +113,7 @@ public class RankController {
     return sortedEntryList;
   }
 
-  @CrossOrigin(origins = "http://localhost:3000")
+  @CrossOrigin(origins = "*")
   @GetMapping("/rank/location")
   List<String> topLocations() {
     /*

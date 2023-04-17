@@ -30,7 +30,7 @@ public class RecommendationController {
     this.segmentRepository = segmentRepository;
   }
 
-  @CrossOrigin(origins = "http://localhost:3000")
+  @CrossOrigin(origins = "*")
   @GetMapping("/recommendation/activity/height/{height}/weight/{weight}/gender/{gender}/age/{age}")
   public Map<String, Integer> recommendActivityForCalories(
       @PathVariable("height") @Pattern(regexp = "^([1-7](\\.\\d)?|8(\\.0)?)$") Double height,
@@ -67,7 +67,7 @@ public class RecommendationController {
     return sportTime;
   }
 
-  @CrossOrigin(origins = "http://localhost:3000")
+  @CrossOrigin(origins = "*")
   @GetMapping("/recommendation/activity/location/{latitude}/{longtitude}")
   public Map<String, Integer> recommendActivityOnLocation(
       @PathVariable Double latitude,

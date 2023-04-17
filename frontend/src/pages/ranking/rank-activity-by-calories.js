@@ -6,10 +6,15 @@ const RankActivityByCalories = ({ base }) => {
   const [data, setData] = useState();
   const [loading, setLoading] = useState(true);
   useEffect(() => {
-    axios.get(`${base}/rank/activity/calories`).then((res) => {
-      setData(res.data);
-      setLoading(false);
-    });
+    axios
+      .get(`${base}/rank/activity/calories`)
+      .then((res) => {
+        setData(res.data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
 
   return (
