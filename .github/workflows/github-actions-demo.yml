@@ -16,3 +16,15 @@ jobs:
         run: |
           ls ${{ github.workspace }}
       - run: echo "🍏 This job's status is ${{ job.status }}."
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Set up JDK 11
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+      - name: Build with Gradle
+        run: ./gradlew build
+        working-directory: fitness
+      - name: Run JUnit tests
+        run: ./gradlew test
+        working-directory: fitness
