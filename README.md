@@ -23,23 +23,37 @@ These recommendations are based on activity patterns, and activities that people
 - Test with CodeMR
 
 ## Final Product Documentation
-- Where the code is
-  - github link: https://github.com/zwwang98/5500-yihu-yitianhuang-ziweiwang
-- How to build the code
-  - Backend Deployment 
-    - Update field `spring.datasource.url` in file `application.properties` in Spring boot project.  
+### Where the code is
+  - Client(React): https://github.com/zwwang98/5500-yihu-yitianhuang-ziweiwang/tree/main/frontend
+  - Server(Spring boot): https://github.com/zwwang98/5500-yihu-yitianhuang-ziweiwang/tree/main/fitness
+### Build and Deployment
+  - Server
+    - Build
+      - Clone code to local and open the project with Intellij IDEA and Maven
+      - Install all dependencies specified in `pom.xml` 
+      - Update field `spring.datasource.url` in file `application.properties` in Spring boot project.  
          This project uses AWS RDS PostgreSQL database as the datasource, so the `spring.datasource.url` could be found on AWS console. 
-    - Already configured AWS RDS PostgreSQL instance allowing inbound from `172.31.0.0./16`. So every time deploy the server, just do:
-      - update the datasource url
-      - `mvn package`
-      - upload `.jar` into AWS EC2 instance and run it using `java -jar XXX.jar`
-      Then the server should be available through "http://{IP}:8080/rank/activity/calories"
-  - Frontend Deployment
-    - `npm start`
-      - Runs the app in the development mode. Open http://localhost:3000 to view it in your browser.
-    - `npm run build`
-      - Builds the app for production to the build folder. It correctly bundles React in production mode and optimizes the build for the best performance.
-- To access the webapp on cloud http://34.215.199.159:3000/recommendation, please contact us to add your IP address to the AWS EC2 instance.
+    - Deployment
+      - We chose AWS EC2 to deploy the server
+      - Package the project into `.jar` file and copy it onto ec2 instance
+      - Run the `.jar` file using `java -jar XXX.jar` on ec2 instance
+      - Already configured AWS RDS PostgreSQL instance allowing inbound from `172.31.0.0./16`. So every time deploy the server, just do:
+        - update the datasource url
+        - `mvn package`
+        Then the server should be available through "http://{IP}:8080/rank/activity/calories" with correctly configured security group.
+  - Client
+    - Build
+      - Clone code to local and open the project with VS COde
+      - Run `npm install` to install all dependencies
+      - `npm start`
+        - Runs the app in the development mode. Open http://localhost:3000 to view it in your browser.
+      - `npm run build`
+        - Builds the app for production to the build folder. It correctly bundles React in production mode and optimizes the build for the best performance.
+    - Deployment
+      - We chose to deploy React in the same instance as where the server deployment locates at
+      - Copy the build output file onto ec2 instance
+      - run the project using `npm start`
+  - To access the webapp on cloud http://34.215.199.159:3000/recommendation, please contact us to add your IP address to the AWS EC2 instance.
 
 The page will reload when you make changes.
 You may also see any lint errors in the console.
