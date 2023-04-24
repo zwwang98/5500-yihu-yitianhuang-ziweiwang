@@ -7,18 +7,13 @@ These recommendations are based on activity patterns, and activities that people
 
 ## Features and Functionalities
 - Ranking
-  - By frequency: rank activities based on overall frequency
-    Purpose: show clients most liked activities’ ranking
-  - By calories: rank activities based on its average calories per session
-    Purpose: show clients most calorie-burned activities
-  - By location: rank locations based on visited frequency
-    Purpose: show clients most visited locations
+  - By frequency: rank activities based on overall frequency, to show clients most liked activities’ ranking
+  - By calories: rank activities based on its average calories per session, to show clients most calorie-burned activities
+  - By location: rank locations based on visited frequency, to show clients most visited locations
 - Suggestion
-  - Suggest most popular activities based on location inputs
-    In the future, integrate with obtaining client’s real-time current location
+  - Suggest most popular activities based on location inputs. Can, in the future, integrate with obtaining client’s real-time current location
 - Recommendation
-  - Suggest activities and time of each activity to complete daily calories target
-    Select the most popular activities in the U.S. for suggestion
+  - Suggest activities and time of each activity to complete daily calories target. Select the most popular activities in the U.S. for suggestion
 
 
 ## Updated Code/Test Metrics
@@ -44,6 +39,7 @@ These recommendations are based on activity patterns, and activities that people
       - Runs the app in the development mode. Open http://localhost:3000 to view it in your browser.
     - `npm run build`
       - Builds the app for production to the build folder. It correctly bundles React in production mode and optimizes the build for the best performance.
+- To access the webapp on cloud http://34.215.199.159:3000/recommendation, please contact us to add your IP address to the AWS EC2 instance.
 
 The page will reload when you make changes.
 You may also see any lint errors in the console.
