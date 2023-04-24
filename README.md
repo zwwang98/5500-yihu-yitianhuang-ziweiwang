@@ -53,7 +53,7 @@ These recommendations are based on activity patterns, and activities that people
       - We chose to deploy React in the same instance as where the server deployment locates at
       - Copy the build output file onto ec2 instance
       - run the project using `npm start`
-  - To access the webapp on cloud http://34.215.199.159:3000/recommendation, please contact us to add your IP address to the AWS EC2 instance.
+  - Out deployment: http://34.215.199.159:3000. Please contact us to add your IP address to the AWS EC2 instance so that you could access it.
 
 The page will reload when you make changes.
 You may also see any lint errors in the console.
